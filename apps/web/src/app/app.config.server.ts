@@ -1,9 +1,9 @@
 import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
-import { API_BASE_URL } from './core/tokens/api.token';
+import { API_BASE_URL } from '@outtask/data-access';
 
-const serverConfig: ApplicationConfig = {
+const ssrConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     {
@@ -13,4 +13,4 @@ const serverConfig: ApplicationConfig = {
   ],
 };
 
-export const serverConfig = mergeApplicationConfig(appConfig, serverConfig);
+export const serverConfig = mergeApplicationConfig(appConfig, ssrConfig);

@@ -5,7 +5,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
 import { apiInterceptor } from './core/interceptors/api.interceptor';
-import { API_BASE_URL } from './core/tokens/api.token';
+import { API_BASE_URL } from '@outtask/data-access';
 
 export const appConfig: ApplicationConfig = {
   providers: [

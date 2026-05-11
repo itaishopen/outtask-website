@@ -8,8 +8,8 @@ import {
 import { PublicApiService } from '@outtask/data-access';
 import { SectionRendererComponent } from '@outtask/content';
 import { SeoService } from '../../core/services/seo.service';
-import type { PageSection } from '@outtask/shared-types';
 import { SectionType } from '@outtask/shared-types';
+import type { PageSection } from '@outtask/shared-types';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
 
   readonly sections = signal<PageSection[]>([]);
   readonly loading = signal(true);
-  readonly error = signal(false);
 
   ngOnInit(): void {
     this.seo.setPage({
@@ -47,7 +46,6 @@ export class HomeComponent implements OnInit {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set(true);
         this.loading.set(false);
         this.sections.set(this.getFallbackSections());
       },
