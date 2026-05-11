@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.rich-text {
+  &__content {
+    max-width: 72ch;
+
+    &--centered {
+      margin-inline: auto;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<section class="logo-cloud section--sm">
+  <div class="container">
+    @if (config().heading) {
+      <p class="logo-cloud__heading">{{ config().heading }}</p>
+    }
+    <div class="logo-cloud__grid">
+      @for (logo of config().logos; track logo.name) {
+        @if (logo.href) {
+          <a [href]="logo.href" class="logo-cloud__logo" target="_blank" rel="noopener noreferrer" [attr.aria-label]="logo.name">
+            <img [src]="logo.logoUrl" [alt]="logo.name" loading="lazy" />
+          </a>
+        } @else {
+          <div class="logo-cloud__logo" [attr.aria-label]="logo.name">
+            <img [src]="logo.logoUrl" [alt]="logo.name" loading="lazy" />
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+.vacancy-list-section {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    padding: 1.5rem;
+  }
+
+  &__card-top {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__card-title {
+    font-family: var(--font-heading, 'Sora', sans-serif);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  &__card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  &__skeleton {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+}

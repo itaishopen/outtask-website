@@ -1,0 +1,21 @@
+// ============================================================
+// Outtask Website — Global Stylesheet
+// ============================================================
+
+// 1. Design tokens & SCSS variables
+@use 'variables' as *;
+
+// 2. Modern CSS reset
+@use 'reset';
+
+// 3. Typography
+@use 'typography';
+
+// 4. Utility classes
+@use 'utilities';
+
+// 5. Animations
+@use 'animations';
+
+// 6. Global component styles
+@use 'components';

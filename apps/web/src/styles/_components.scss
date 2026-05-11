@@ -1,0 +1,238 @@
+// ============================================================
+// Global Component Styles
+// ============================================================
+
+// ---- Buttons ----
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  &--sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  &--lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+.btn-primary {
+  @extend .btn;
+  background-color: var(--color-primary);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-secondary {
+  @extend .btn;
+  background-color: var(--color-secondary);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-secondary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.btn-outline {
+  @extend .btn;
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  &--white {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #fff;
+
+    &:hover {
+      background-color: #fff;
+      color: var(--color-primary);
+      border-color: #fff;
+    }
+  }
+}
+
+.btn-ghost {
+  @extend .btn;
+  background-color: transparent;
+  color: var(--color-text);
+
+  &:hover {
+    background-color: var(--color-bg-alt);
+  }
+}
+
+// ---- Badge ----
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background-color: rgba(37, 99, 235, 0.1);
+  color: var(--color-primary);
+
+  &--success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #059669;
+  }
+
+  &--warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+  }
+
+  &--neutral {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text-muted);
+  }
+}
+
+// ---- Card Base ----
+.card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+
+  &--hoverable {
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-border-dark);
+    }
+  }
+
+  &--flat {
+    border: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  &--elevated {
+    border: none;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// ---- Divider ----
+.divider {
+  height: 1px;
+  background-color: var(--color-border);
+  border: none;
+  margin-block: 2rem;
+}
+
+// ---- Tag ----
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-alt);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+// ---- Loading spinner ----
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ---- Pagination ----
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--color-bg-alt);
+      color: var(--color-text);
+    }
+
+    &--active {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+
+      &:hover {
+        background: var(--color-primary-dark);
+        color: #fff;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}

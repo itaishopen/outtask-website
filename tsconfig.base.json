@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@outtask/shared-types": ["libs/shared-types/src/index.ts"],
+      "@outtask/ui": ["libs/ui/src/index.ts"],
+      "@outtask/auth": ["libs/auth/src/index.ts"],
+      "@outtask/content": ["libs/content/src/index.ts"],
+      "@outtask/jobs": ["libs/jobs/src/index.ts"],
+      "@outtask/data-access": ["libs/data-access/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

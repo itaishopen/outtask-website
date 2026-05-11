@@ -1,0 +1,105 @@
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1a2d52 40%, #2563eb 100%);
+  color: #fff;
+  padding-block: 7rem 6rem;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    padding-block: 9rem 7rem;
+    min-height: 640px;
+  }
+
+  &--dark {
+    background: #0f172a;
+  }
+
+  // Decorative blobs
+  &__bg-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  &__blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+
+    &--1 {
+      width: 600px;
+      height: 600px;
+      background: #3b82f6;
+      top: -200px;
+      right: -100px;
+    }
+
+    &--2 {
+      width: 400px;
+      height: 400px;
+      background: #f97316;
+      bottom: -150px;
+      left: -80px;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+  }
+
+  &__badge {
+    background-color: rgba(37, 99, 235, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 1.5rem;
+  }
+
+  &__headline {
+    font-family: var(--font-heading, 'Sora', sans-serif);
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 640px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__subheadline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 620px;
+  }
+
+  &__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

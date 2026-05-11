@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "useDefineForClassFields": false,
+    "lib": ["ES2022", "dom"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "strict": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "paths": {
+      "@outtask/shared-types": ["../../libs/shared-types/src/index.ts"],
+      "@outtask/ui": ["../../libs/ui/src/index.ts"],
+      "@outtask/content": ["../../libs/content/src/index.ts"],
+      "@outtask/data-access": ["../../libs/data-access/src/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+}

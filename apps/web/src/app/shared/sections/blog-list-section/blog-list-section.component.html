@@ -1,0 +1,74 @@
+<section class="blog-list-section section">
+  <div class="container">
+    @if (config().heading) {
+      <div class="section-header section-header--center">
+        <h2 class="section-title">{{ config().heading }}</h2>
+        @if (config().subtitle) {
+          <p class="section-subtitle section-subtitle--center">{{ config().subtitle }}</p>
+        }
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="blog-list-section__grid">
+        @for (_ of [1,2,3]; track $index) {
+          <div class="blog-list-section__skeleton">
+            <div class="skeleton" style="height: 200px; margin-bottom: 1rem; border-radius: var(--radius-md);"></div>
+            <div class="skeleton" style="height: 1.25rem; width: 80%; margin-bottom: 0.5rem;"></div>
+            <div class="skeleton" style="height: 1rem; width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="skeleton" style="height: 1rem; width: 70%;"></div>
+          </div>
+        }
+      </div>
+    } @else if (error()) {
+      <p class="text-muted text-center">Could not load blog posts at this time.</p>
+    } @else if (posts().length === 0) {
+      <div class="empty-state">
+        <p class="empty-state__title">No articles yet</p>
+        <p class="empty-state__message">Check back soon for insights and updates.</p>
+      </div>
+    } @else {
+      <div class="blog-list-section__grid">
+        @for (post of posts(); track post.id) {
+          <a [routerLink]="['/en/blog', post.slug]" class="blog-list-section__card card card--hoverable">
+            @if (post.featuredImageUrl) {
+              <div class="blog-list-section__image-wrapper">
+                <img
+                  [src]="post.featuredImageUrl"
+                  [alt]="post.title"
+                  class="blog-list-section__image"
+                  loading="lazy"
+                />
+              </div>
+            }
+            <div class="blog-list-section__body">
+              @if (post.category) {
+                <span class="badge">{{ post.category }}</span>
+              }
+              <h3 class="blog-list-section__title">{{ post.title }}</h3>
+              @if (post.excerpt) {
+                <p class="blog-list-section__excerpt">{{ post.excerpt }}</p>
+              }
+              <div class="blog-list-section__meta">
+                @if (post.publishedAt) {
+                  <time [dateTime]="post.publishedAt">
+                    {{ post.publishedAt | date:'mediumDate' }}
+                  </time>
+                }
+                @if (post.readingTime) {
+                  <span>{{ post.readingTime }} min read</span>
+                }
+              </div>
+            </div>
+          </a>
+        }
+      </div>
+
+      @if (config().showViewAll !== false) {
+        <div class="blog-list-section__footer">
+          <a routerLink="/en/blog" class="btn btn-outline">View all articles</a>
+        </div>
+      }
+    }
+  </div>
+</section>

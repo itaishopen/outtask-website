@@ -1,0 +1,28 @@
+<section class="hero" [class.hero--dark]="config().backgroundVariant === 'dark'">
+  <div class="hero__bg-decoration" aria-hidden="true">
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+  </div>
+
+  <div class="container hero__content">
+    @if (config().badge) {
+      <span class="badge hero__badge animate-fade-up">{{ config().badge }}</span>
+    }
+    <h1 class="hero__headline animate-fade-up animate-delay-1">{{ config().headline }}</h1>
+    @if (config().subheadline) {
+      <p class="hero__subheadline animate-fade-up animate-delay-2">{{ config().subheadline }}</p>
+    }
+    @if (config().ctas && config().ctas!.length) {
+      <div class="hero__ctas animate-fade-up animate-delay-3">
+        @for (cta of config().ctas; track cta.label) {
+          <a
+            [routerLink]="cta.href"
+            [class]="'btn btn-' + (cta.variant ?? 'primary') + ' btn--lg'"
+          >
+            {{ cta.label }}
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>

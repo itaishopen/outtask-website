@@ -1,0 +1,86 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: outtask-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: outtask
+      POSTGRES_PASSWORD: outtask_dev_password
+      POSTGRES_DB: outtask
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U outtask']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: outtask-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@outtask.nl
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
+    profiles:
+      - tools
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: outtask-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://outtask:outtask_dev_password@db:5432/outtask
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/uploads
+    profiles:
+      - full
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: outtask-web
+    restart: unless-stopped
+    environment:
+      API_URL: http://api:3000/api
+      PORT: 4000
+    ports:
+      - '4000:4000'
+    depends_on:
+      - api
+    profiles:
+      - full
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    container_name: outtask-admin
+    restart: unless-stopped
+    ports:
+      - '4201:80'
+    profiles:
+      - full
+
+volumes:
+  postgres_data:
+  uploads:

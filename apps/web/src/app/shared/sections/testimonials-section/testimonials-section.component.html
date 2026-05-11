@@ -1,0 +1,46 @@
+<section class="testimonials section bg-alt">
+  <div class="container">
+    @if (config().heading || config().eyebrow) {
+      <div class="section-header section-header--center">
+        @if (config().eyebrow) {
+          <span class="eyebrow">{{ config().eyebrow }}</span>
+        }
+        @if (config().heading) {
+          <h2 class="section-title">{{ config().heading }}</h2>
+        }
+      </div>
+    }
+
+    <div class="testimonials__track">
+      @for (testimonial of config().testimonials; track testimonial.authorName) {
+        <article class="testimonials__card card card--elevated">
+          <svg class="testimonials__quote-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M16 8H8C5.79 8 4 9.79 4 12v8c0 2.21 1.79 4 4 4h4l-4 8h4l4-8V12a4 4 0 0 0-4-4zm20 0h-8c-2.21 0-4 1.79-4 4v8c0 2.21 1.79 4 4 4h4l-4 8h4l4-8V12a4 4 0 0 0-4-4z" fill="#2563eb" fill-opacity="0.15"/>
+          </svg>
+
+          <blockquote class="testimonials__quote">{{ testimonial.quote }}</blockquote>
+
+          <div class="testimonials__author">
+            <div class="testimonials__avatar">
+              @if (testimonial.avatarUrl) {
+                <img [src]="testimonial.avatarUrl" [alt]="testimonial.authorName" loading="lazy" />
+              } @else {
+                <span>{{ getInitials(testimonial.authorName) }}</span>
+              }
+            </div>
+            <div class="testimonials__author-info">
+              <p class="testimonials__author-name">{{ testimonial.authorName }}</p>
+              @if (testimonial.authorTitle || testimonial.company) {
+                <p class="testimonials__author-meta">
+                  {{ testimonial.authorTitle }}
+                  @if (testimonial.authorTitle && testimonial.company) { · }
+                  {{ testimonial.company }}
+                </p>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

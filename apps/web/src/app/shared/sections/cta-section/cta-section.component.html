@@ -1,0 +1,26 @@
+<section
+  class="cta-section section"
+  [class.cta-section--dark]="config().variant === 'dark'"
+  [class.cta-section--brand]="config().variant === 'brand'"
+>
+  <div class="container cta-section__inner">
+    <div class="cta-section__text">
+      <h2 class="cta-section__heading">{{ config().heading }}</h2>
+      @if (config().subheading) {
+        <p class="cta-section__subheading">{{ config().subheading }}</p>
+      }
+    </div>
+    @if (config().ctas && config().ctas!.length) {
+      <div class="cta-section__actions">
+        @for (cta of config().ctas; track cta.label) {
+          <a
+            [routerLink]="cta.href"
+            [class]="'btn btn-' + (cta.variant ?? 'primary') + ' btn--lg'"
+          >
+            {{ cta.label }}
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>

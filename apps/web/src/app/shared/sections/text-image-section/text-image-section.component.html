@@ -1,0 +1,41 @@
+<section class="text-image section" [class.text-image--alt-bg]="config().backgroundVariant === 'alt'">
+  <div class="container">
+    <div
+      class="text-image__grid"
+      [class.text-image__grid--reversed]="config().imagePosition === 'left'"
+    >
+      <!-- Text -->
+      <div class="text-image__text">
+        @if (config().eyebrow) {
+          <span class="eyebrow">{{ config().eyebrow }}</span>
+        }
+        <h2 class="text-image__heading">{{ config().heading }}</h2>
+        <p class="text-image__body">{{ config().body }}</p>
+        @if (config().cta) {
+          <a
+            [routerLink]="config().cta!.href"
+            [class]="'btn btn-' + (config().cta!.variant ?? 'primary')"
+          >
+            {{ config().cta!.label }}
+          </a>
+        }
+      </div>
+
+      <!-- Image -->
+      <div class="text-image__media">
+        @if (config().imageUrl) {
+          <img
+            class="text-image__image"
+            [src]="config().imageUrl"
+            [alt]="config().imageAlt ?? ''"
+            loading="lazy"
+          />
+        } @else {
+          <div class="text-image__placeholder" aria-hidden="true">
+            <div class="text-image__placeholder-inner"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

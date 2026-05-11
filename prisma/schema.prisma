@@ -1,0 +1,184 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum RoleName {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum SectionType {
+  HERO
+  TEXT_IMAGE
+  CARDS
+  TESTIMONIALS
+  CTA
+  RICH_TEXT
+  VACANCY_LIST
+  BLOG_LIST
+  LOGO_CLOUD
+  FAQ
+}
+
+// ─── Auth / Users ─────────────────────────────────────────────────────────────
+
+model Role {
+  id        String   @id @default(cuid())
+  name      RoleName @unique
+  users     User[]
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id          String     @id @default(cuid())
+  microsoftId String     @unique
+  email       String     @unique
+  name        String
+  avatar      String?
+  roleId      String
+  role        Role       @relation(fields: [roleId], references: [id])
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  auditLogs   AuditLog[]
+
+  @@index([email])
+}
+
+// ─── Pages & Sections ─────────────────────────────────────────────────────────
+
+model Page {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  locale      String        @default("en")
+  status      ContentStatus @default(DRAFT)
+  seoTitle    String?
+  seoDesc     String?
+  ogImage     String?
+  sections    PageSection[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([status])
+}
+
+model PageSection {
+  id        String      @id @default(cuid())
+  pageId    String
+  page      Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  type      SectionType
+  order     Int
+  config    Json
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([pageId, order])
+}
+
+// ─── Blog ─────────────────────────────────────────────────────────────────────
+
+model BlogPost {
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  excerpt       String?
+  content       String
+  featuredImage String?
+  status        ContentStatus @default(DRAFT)
+  seoTitle      String?
+  seoDesc       String?
+  publishedAt   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([status, publishedAt])
+}
+
+// ─── Vacancies & Job Providers ────────────────────────────────────────────────
+
+model JobProviderConfig {
+  id         String    @id @default(cuid())
+  name       String    @unique
+  type       String
+  config     Json      @default("{}")
+  enabled    Boolean   @default(true)
+  lastSyncAt DateTime?
+  vacancies  Vacancy[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Vacancy {
+  id             String             @id @default(cuid())
+  title          String
+  slug           String             @unique
+  location       String?
+  department     String?
+  employmentType String?
+  seniority      String?
+  description    String
+  requirements   String?
+  benefits       String?
+  applyUrl       String?
+  externalId     String?
+  providerId     String?
+  provider       JobProviderConfig? @relation(fields: [providerId], references: [id])
+  status         ContentStatus      @default(DRAFT)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@unique([externalId, providerId])
+  @@index([slug])
+  @@index([status])
+  @@index([department])
+}
+
+// ─── Media ────────────────────────────────────────────────────────────────────
+
+model MediaAsset {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  url          String
+  mimeType     String
+  size         Int
+  uploadedById String
+  createdAt    DateTime @default(now())
+
+  @@index([uploadedById])
+}
+
+// ─── Audit Log ────────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  entityId  String
+  changes   Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([entity, entityId])
+  @@index([createdAt])
+}

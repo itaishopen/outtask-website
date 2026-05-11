@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /en/
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://outtask.nl/sitemap.xml

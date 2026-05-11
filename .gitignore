@@ -1,0 +1,50 @@
+
+# Nx
+.nx/installation
+.nx/cache
+.nx/workspace-data
+.nx/self-healing
+.nx/polygraph
+
+# Claude
+.claude/worktrees
+.claude/settings.local.json
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+.angular/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.sqlite
+
+# Uploads (local dev)
+apps/api/uploads/
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage/
+playwright-report/
+test-results/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*

@@ -1,0 +1,51 @@
+<section class="cards-section section">
+  <div class="container">
+    @if (config().heading || config().eyebrow || config().subtitle) {
+      <div class="section-header" [class.section-header--center]="config().centeredHeader">
+        @if (config().eyebrow) {
+          <span class="eyebrow">{{ config().eyebrow }}</span>
+        }
+        @if (config().heading) {
+          <h2 class="section-title">{{ config().heading }}</h2>
+        }
+        @if (config().subtitle) {
+          <p class="section-subtitle" [class.section-subtitle--center]="config().centeredHeader">
+            {{ config().subtitle }}
+          </p>
+        }
+      </div>
+    }
+
+    <div
+      class="cards-section__grid"
+      [class.cards-section__grid--2]="config().columns === 2"
+      [class.cards-section__grid--4]="config().columns === 4"
+    >
+      @for (card of config().cards; track card.title) {
+        @if (card.href) {
+          <a [routerLink]="card.href" class="cards-section__card card card--hoverable">
+            @if (card.icon) {
+              <div class="cards-section__icon" aria-hidden="true">{{ card.icon }}</div>
+            }
+            @if (card.badge) {
+              <span class="badge">{{ card.badge }}</span>
+            }
+            <h3 class="cards-section__card-title">{{ card.title }}</h3>
+            <p class="cards-section__card-desc">{{ card.description }}</p>
+          </a>
+        } @else {
+          <div class="cards-section__card card">
+            @if (card.icon) {
+              <div class="cards-section__icon" aria-hidden="true">{{ card.icon }}</div>
+            }
+            @if (card.badge) {
+              <span class="badge">{{ card.badge }}</span>
+            }
+            <h3 class="cards-section__card-title">{{ card.title }}</h3>
+            <p class="cards-section__card-desc">{{ card.description }}</p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</section>

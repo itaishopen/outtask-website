@@ -1,0 +1,69 @@
+<section class="vacancy-list-section section bg-alt">
+  <div class="container">
+    @if (config().heading) {
+      <div class="section-header section-header--center">
+        <h2 class="section-title">{{ config().heading }}</h2>
+        @if (config().subtitle) {
+          <p class="section-subtitle section-subtitle--center">{{ config().subtitle }}</p>
+        }
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="vacancy-list-section__grid">
+        @for (_ of [1,2,3]; track $index) {
+          <div class="vacancy-list-section__skeleton">
+            <div class="skeleton" style="height: 1.5rem; width: 70%; margin-bottom: 0.75rem;"></div>
+            <div class="skeleton" style="height: 1rem; width: 40%; margin-bottom: 0.5rem;"></div>
+            <div class="skeleton" style="height: 1rem; width: 30%;"></div>
+          </div>
+        }
+      </div>
+    } @else if (error()) {
+      <p class="text-muted text-center">Could not load vacancies at this time.</p>
+    } @else if (vacancies().length === 0) {
+      <div class="empty-state">
+        <p class="empty-state__title">No open positions right now</p>
+        <p class="empty-state__message">Check back soon — we're always growing.</p>
+      </div>
+    } @else {
+      <div class="vacancy-list-section__grid">
+        @for (vacancy of vacancies(); track vacancy.id) {
+          <a
+            [routerLink]="['/en/vacancies', vacancy.slug]"
+            class="vacancy-list-section__card card card--hoverable"
+          >
+            <div class="vacancy-list-section__card-top">
+              @if (vacancy.department) {
+                <span class="badge badge--neutral">{{ vacancy.department }}</span>
+              }
+            </div>
+            <h3 class="vacancy-list-section__card-title">{{ vacancy.title }}</h3>
+            <div class="vacancy-list-section__card-meta">
+              @if (vacancy.location) {
+                <span class="tag">
+                  <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true">
+                    <path d="M8 1.5A4.5 4.5 0 0 1 12.5 6c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5z" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                  {{ vacancy.location }}
+                </span>
+              }
+              @if (vacancy.employmentType) {
+                <span class="tag">{{ vacancy.employmentType }}</span>
+              }
+            </div>
+          </a>
+        }
+      </div>
+
+      @if (config().showViewAll !== false) {
+        <div class="vacancy-list-section__footer">
+          <a routerLink="/en/vacancies" class="btn btn-outline">
+            View all vacancies
+          </a>
+        </div>
+      }
+    }
+  </div>
+</section>

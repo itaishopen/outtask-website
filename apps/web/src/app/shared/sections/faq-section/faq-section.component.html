@@ -1,0 +1,45 @@
+<section class="faq section">
+  <div class="container faq__inner">
+    @if (config().heading || config().eyebrow) {
+      <div class="faq__header">
+        @if (config().eyebrow) {
+          <span class="eyebrow">{{ config().eyebrow }}</span>
+        }
+        @if (config().heading) {
+          <h2 class="faq__title">{{ config().heading }}</h2>
+        }
+      </div>
+    }
+
+    <dl class="faq__list">
+      @for (item of config().items; track item.question; let i = $index) {
+        <div class="faq__item" [class.faq__item--open]="isOpen(i)">
+          <dt>
+            <button
+              class="faq__question"
+              (click)="toggle(i)"
+              [attr.aria-expanded]="isOpen(i)"
+              [attr.aria-controls]="'faq-answer-' + i"
+            >
+              <span>{{ item.question }}</span>
+              <svg
+                class="faq__chevron"
+                [class.faq__chevron--open]="isOpen(i)"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </dt>
+          @if (isOpen(i)) {
+            <dd class="faq__answer" [id]="'faq-answer-' + i">
+              {{ item.answer }}
+            </dd>
+          }
+        </div>
+      }
+    </dl>
+  </div>
+</section>

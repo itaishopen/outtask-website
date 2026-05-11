@@ -1,0 +1,87 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <!-- Brand column -->
+      <div class="footer__brand">
+        <a routerLink="/en" class="footer__logo">
+          <svg class="footer__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="40" height="40" rx="10" fill="#2563eb"/>
+            <path d="M10 14h20M10 20h14M10 26h20" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="28" cy="20" r="4" fill="#f97316"/>
+          </svg>
+          <span class="footer__logo-text">Outtask</span>
+        </a>
+        <p class="footer__tagline">Connecting ambitious companies with top IT talent.</p>
+        <!-- LinkedIn -->
+        <a
+          href="https://linkedin.com/company/outtask"
+          class="footer__social"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Outtask on LinkedIn"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="20" height="20">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+
+      <!-- Services column -->
+      <div class="footer__col">
+        <h3 class="footer__col-title">Services</h3>
+        <ul class="footer__links">
+          <li><a routerLink="/en/services/staffing" class="footer__link">IT Staffing</a></li>
+          <li><a routerLink="/en/services/nearshoring" class="footer__link">Nearshoring</a></li>
+          <li><a routerLink="/en/hire-a-developer" class="footer__link">Hire a Developer</a></li>
+        </ul>
+      </div>
+
+      <!-- Company column -->
+      <div class="footer__col">
+        <h3 class="footer__col-title">Company</h3>
+        <ul class="footer__links">
+          <li><a routerLink="/en/working-at-outtask" class="footer__link">Working at Outtask</a></li>
+          <li><a routerLink="/en/expats" class="footer__link">Expats</a></li>
+          <li><a routerLink="/en/happy-people" class="footer__link">Happy People</a></li>
+          <li><a routerLink="/en/vacancies" class="footer__link">Vacancies</a></li>
+          <li><a routerLink="/en/blog" class="footer__link">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect column -->
+      <div class="footer__col">
+        <h3 class="footer__col-title">Connect</h3>
+        <ul class="footer__links">
+          <li>
+            <a
+              href="https://linkedin.com/company/outtask"
+              class="footer__link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info&#64;outtask.nl" class="footer__link">
+              info&#64;outtask.nl
+            </a>
+          </li>
+          <li><a routerLink="/en/contact" class="footer__link">Schedule a meeting</a></li>
+          <li class="footer__address">Amsterdam, Netherlands</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; {{ currentYear }} Outtask. All rights reserved.</p>
+      <div class="footer__legal">
+        <a href="/en/privacy" class="footer__legal-link">Privacy Policy</a>
+        <span aria-hidden="true">·</span>
+        <a href="/en/terms" class="footer__legal-link">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
