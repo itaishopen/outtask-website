@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
-import { API_BASE_URL } from '../tokens/api-base-url.token';
+import { API_BASE_URL } from '@outtask/data-access';
 import { AuthTokens } from '@outtask/shared-types';
 import { ApiResponse } from '@outtask/shared-types';
 

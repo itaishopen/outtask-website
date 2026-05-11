@@ -27,7 +27,7 @@ import {
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
-import { API_BASE_URL } from './shared/tokens/api-base-url.token';
+import { API_BASE_URL } from '@outtask/data-access';
 import { jwtInterceptor } from './shared/interceptors/jwt.interceptor';
 
 export function MSALInstanceFactory(): IPublicClientApplication {

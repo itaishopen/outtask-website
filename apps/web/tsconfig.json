@@ -8,7 +8,6 @@
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
     "strict": true,
     "noPropertyAccessFromIndexSignature": false,
     "paths": {
@@ -22,7 +21,8 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "forceStrictTemplates": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }
