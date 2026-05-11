@@ -1,0 +1,76 @@
+<div class="blog-list">
+  <header class="blog-list__header">
+    <div class="container">
+      <h1 class="blog-list__title">Blog &amp; Insights</h1>
+      <p class="blog-list__subtitle">
+        Expert perspectives on IT staffing, nearshoring, and building great tech teams.
+      </p>
+    </div>
+  </header>
+
+  <div class="container blog-list__content">
+    @if (loading()) {
+      <div class="blog-list__grid">
+        @for (_ of [1,2,3,4,5,6]; track $index) {
+          <div class="blog-list__skeleton">
+            <div class="skeleton" style="height:200px;margin-bottom:1rem;border-radius:12px"></div>
+            <div class="skeleton" style="height:1.25rem;width:80%;margin-bottom:0.5rem"></div>
+            <div class="skeleton" style="height:1rem;width:60%;margin-bottom:0.25rem"></div>
+            <div class="skeleton" style="height:1rem;width:90%"></div>
+          </div>
+        }
+      </div>
+    } @else if (error()) {
+      <div class="error-state">
+        <p class="error-state__title">Could not load articles</p>
+        <p class="error-state__message">Please try refreshing the page.</p>
+      </div>
+    } @else if (posts().length === 0) {
+      <div class="empty-state">
+        <p class="empty-state__title">No articles yet</p>
+        <p class="empty-state__message">Check back soon for insights and updates.</p>
+      </div>
+    } @else {
+      <div class="blog-list__grid">
+        @for (post of posts(); track post.id) {
+          <lib-blog-card [post]="post" />
+        }
+      </div>
+
+      <!-- Pagination -->
+      @if (totalPages() > 1) {
+        <nav class="pagination" aria-label="Blog pagination">
+          <button
+            class="pagination__btn"
+            (click)="goToPage(currentPage() - 1)"
+            [disabled]="currentPage() === 1"
+            aria-label="Previous page"
+          >
+            ←
+          </button>
+
+          @for (page of pages; track page) {
+            <button
+              class="pagination__btn"
+              [class.pagination__btn--active]="page === currentPage()"
+              (click)="goToPage(page)"
+              [attr.aria-current]="page === currentPage() ? 'page' : null"
+              [attr.aria-label]="'Page ' + page"
+            >
+              {{ page }}
+            </button>
+          }
+
+          <button
+            class="pagination__btn"
+            (click)="goToPage(currentPage() + 1)"
+            [disabled]="currentPage() === totalPages()"
+            aria-label="Next page"
+          >
+            →
+          </button>
+        </nav>
+      }
+    }
+  </div>
+</div>

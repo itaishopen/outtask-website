@@ -1,0 +1,71 @@
+@if (loading()) {
+  <div class="container blog-detail__loading">
+    <div class="skeleton" style="height:360px;margin-bottom:2rem;border-radius:16px"></div>
+    <div class="skeleton" style="height:2.5rem;width:70%;margin-bottom:1rem"></div>
+    <div class="skeleton" style="height:1rem;width:40%;margin-bottom:2rem"></div>
+    <div class="skeleton" style="height:1rem;width:100%;margin-bottom:0.5rem"></div>
+    <div class="skeleton" style="height:1rem;width:100%;margin-bottom:0.5rem"></div>
+    <div class="skeleton" style="height:1rem;width:75%"></div>
+  </div>
+} @else if (error() || !post()) {
+  <div class="container">
+    <div class="error-state">
+      <p class="error-state__title">Article not found</p>
+      <p class="error-state__message">This article may have been removed or is no longer available.</p>
+      <a routerLink="/en/blog" class="btn btn-primary">Back to Blog</a>
+    </div>
+  </div>
+} @else {
+  <article class="blog-detail">
+    <!-- Back nav -->
+    <div class="blog-detail__back">
+      <div class="container">
+        <a routerLink="/en/blog" class="blog-detail__back-link">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true">
+            <path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          All articles
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured image -->
+    @if (post()!.featuredImage) {
+      <div class="blog-detail__featured-image-wrap container">
+        <img
+          class="blog-detail__featured-image"
+          [src]="post()!.featuredImage!"
+          [alt]="post()!.title"
+          loading="eager"
+        />
+      </div>
+    }
+
+    <!-- Header -->
+    <header class="container blog-detail__header">
+      @if (post()!.publishedAt) {
+        <time class="blog-detail__date" [dateTime]="post()!.publishedAt!">
+          {{ post()!.publishedAt | date:'MMMM d, yyyy' }}
+        </time>
+      }
+      <h1 class="blog-detail__title">{{ post()!.title }}</h1>
+      @if (post()!.excerpt) {
+        <p class="blog-detail__excerpt">{{ post()!.excerpt }}</p>
+      }
+    </header>
+
+    <!-- Content -->
+    <div class="container blog-detail__body">
+      <div class="prose blog-detail__content" [innerHTML]="safeContent"></div>
+
+      <!-- Footer -->
+      <footer class="blog-detail__footer">
+        <hr class="divider" />
+        <div class="blog-detail__footer-actions">
+          <a routerLink="/en/blog" class="btn btn-outline">← Back to Blog</a>
+          <a routerLink="/en/contact" class="btn btn-primary">Get in touch</a>
+        </div>
+      </footer>
+    </div>
+  </article>
+}

@@ -1,0 +1,125 @@
+@if (loading()) {
+  <div class="container vacancy-detail__loading">
+    <div class="skeleton" style="height:2.5rem;width:60%;margin-bottom:1rem"></div>
+    <div class="skeleton" style="height:1rem;width:40%;margin-bottom:3rem"></div>
+    <div class="skeleton" style="height:1rem;width:100%;margin-bottom:0.5rem"></div>
+    <div class="skeleton" style="height:1rem;width:100%;margin-bottom:0.5rem"></div>
+    <div class="skeleton" style="height:1rem;width:80%"></div>
+  </div>
+} @else if (error() || !vacancy()) {
+  <div class="container">
+    <div class="error-state">
+      <p class="error-state__title">Vacancy not found</p>
+      <p class="error-state__message">This vacancy may have been filled or removed.</p>
+      <a routerLink="/en/vacancies" class="btn btn-primary">View all vacancies</a>
+    </div>
+  </div>
+} @else {
+  <article class="vacancy-detail">
+    <!-- Back navigation -->
+    <div class="vacancy-detail__back">
+      <div class="container">
+        <a routerLink="/en/vacancies" class="vacancy-detail__back-link">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true">
+            <path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          All vacancies
+        </a>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="vacancy-detail__header">
+      <div class="container">
+        <div class="vacancy-detail__tags">
+          @if (vacancy()!.department) {
+            <span class="badge">{{ vacancy()!.department }}</span>
+          }
+          @if (vacancy()!.employmentType) {
+            <span class="badge badge--neutral">{{ vacancy()!.employmentType }}</span>
+          }
+          @if (vacancy()!.seniority) {
+            <span class="badge badge--neutral">{{ vacancy()!.seniority }}</span>
+          }
+        </div>
+        <h1 class="vacancy-detail__title">{{ vacancy()!.title }}</h1>
+        <div class="vacancy-detail__meta">
+          @if (vacancy()!.location) {
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true">
+                <path d="M8 1.5A4.5 4.5 0 0 1 12.5 6c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5z" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              {{ vacancy()!.location }}
+            </span>
+          }
+        </div>
+        <div class="vacancy-detail__apply">
+          @if (vacancy()!.applyUrl) {
+            <a [href]="vacancy()!.applyUrl!" class="btn btn-primary btn--lg" target="_blank" rel="noopener noreferrer">
+              Apply now
+            </a>
+          } @else {
+            <a routerLink="/en/contact" class="btn btn-primary btn--lg">
+              Apply via contact form
+            </a>
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- Body -->
+    <div class="container vacancy-detail__body">
+      <div class="vacancy-detail__content">
+        <!-- Description -->
+        <section class="vacancy-detail__section">
+          <h2 class="vacancy-detail__section-title">About this role</h2>
+          <div class="prose" [innerHTML]="safe(vacancy()!.description)"></div>
+        </section>
+
+        @if (vacancy()!.requirements) {
+          <section class="vacancy-detail__section">
+            <h2 class="vacancy-detail__section-title">Requirements</h2>
+            <div class="prose" [innerHTML]="safe(vacancy()!.requirements)"></div>
+          </section>
+        }
+
+        @if (vacancy()!.benefits) {
+          <section class="vacancy-detail__section">
+            <h2 class="vacancy-detail__section-title">What we offer</h2>
+            <div class="prose" [innerHTML]="safe(vacancy()!.benefits)"></div>
+          </section>
+        }
+      </div>
+
+      <!-- Sticky apply sidebar -->
+      <aside class="vacancy-detail__aside">
+        <div class="vacancy-detail__apply-card card card--elevated">
+          <h3 class="vacancy-detail__apply-title">Interested?</h3>
+          <p class="vacancy-detail__apply-text">
+            Send us your application and we'll get back to you within 2 business days.
+          </p>
+          @if (vacancy()!.applyUrl) {
+            <a [href]="vacancy()!.applyUrl!" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              Apply now
+            </a>
+          } @else {
+            <a routerLink="/en/contact" class="btn btn-primary">Apply via contact</a>
+          }
+          <hr class="divider" />
+          <p class="vacancy-detail__share-label">Share this vacancy</p>
+          <div class="vacancy-detail__share">
+            <a
+              [href]="'https://www.linkedin.com/sharing/share-offsite/?url=' + (vacancy()!.slug)"
+              class="btn btn-outline btn--sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+}

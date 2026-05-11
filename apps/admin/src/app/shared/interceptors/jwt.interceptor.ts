@@ -23,7 +23,8 @@ export const jwtInterceptor: HttpInterceptorFn = (
   const baseUrl = inject(API_BASE_URL);
   const http = inject(HttpClient);
 
-  if (!req.url.includes('/api/')) {
+  // Skip MSAL-managed requests and refresh endpoint (to avoid infinite loops)
+  if (!req.url.includes('/api/') || req.url.includes('/auth/refresh')) {
     return next(req);
   }
 
