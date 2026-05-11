@@ -1,0 +1,111 @@
+<div class="vacancy-list">
+  <!-- Page header -->
+  <header class="vacancy-list__header">
+    <div class="container">
+      <h1 class="vacancy-list__title">Open Positions</h1>
+      <p class="vacancy-list__subtitle">
+        Join Outtask or find your next IT role through us. We connect top talent with ambitious companies.
+      </p>
+    </div>
+  </header>
+
+  <div class="container vacancy-list__layout">
+    <!-- Filters sidebar -->
+    <aside class="vacancy-list__sidebar" aria-label="Filters">
+      <div class="vacancy-list__filter-group">
+        <h3 class="vacancy-list__filter-title">Department</h3>
+        <label class="vacancy-list__filter-option">
+          <input
+            type="radio"
+            name="department"
+            value=""
+            [ngModel]="selectedDepartment()"
+            (ngModelChange)="selectedDepartment.set($event)"
+          />
+          All departments
+        </label>
+        @for (dept of departments(); track dept) {
+          <label class="vacancy-list__filter-option">
+            <input
+              type="radio"
+              name="department"
+              [value]="dept"
+              [ngModel]="selectedDepartment()"
+              (ngModelChange)="selectedDepartment.set($event)"
+            />
+            {{ dept }}
+          </label>
+        }
+      </div>
+
+      <div class="vacancy-list__filter-group">
+        <h3 class="vacancy-list__filter-title">Employment type</h3>
+        <label class="vacancy-list__filter-option">
+          <input
+            type="radio"
+            name="employmentType"
+            value=""
+            [ngModel]="selectedEmploymentType()"
+            (ngModelChange)="selectedEmploymentType.set($event)"
+          />
+          All types
+        </label>
+        @for (type of employmentTypes(); track type) {
+          <label class="vacancy-list__filter-option">
+            <input
+              type="radio"
+              name="employmentType"
+              [value]="type"
+              [ngModel]="selectedEmploymentType()"
+              (ngModelChange)="selectedEmploymentType.set($event)"
+            />
+            {{ type }}
+          </label>
+        }
+      </div>
+
+      @if (selectedDepartment() || selectedEmploymentType()) {
+        <button class="btn btn-ghost vacancy-list__clear" (click)="clearFilters()">
+          Clear filters
+        </button>
+      }
+    </aside>
+
+    <!-- Main content -->
+    <main class="vacancy-list__main">
+      @if (loading()) {
+        <div class="vacancy-list__grid">
+          @for (_ of [1,2,3,4,5,6]; track $index) {
+            <div class="vacancy-list__skeleton">
+              <div class="skeleton" style="height:1.5rem;width:65%;margin-bottom:0.75rem"></div>
+              <div class="skeleton" style="height:1rem;width:40%;margin-bottom:0.5rem"></div>
+              <div class="skeleton" style="height:1rem;width:30%"></div>
+            </div>
+          }
+        </div>
+      } @else if (error()) {
+        <div class="error-state">
+          <p class="error-state__title">Could not load vacancies</p>
+          <p class="error-state__message">Please try refreshing the page.</p>
+        </div>
+      } @else if (filtered().length === 0) {
+        <div class="empty-state">
+          <p class="empty-state__title">No matching vacancies</p>
+          <p class="empty-state__message">Try adjusting your filters or check back later.</p>
+          @if (selectedDepartment() || selectedEmploymentType()) {
+            <button class="btn btn-outline" (click)="clearFilters()">Clear filters</button>
+          }
+        </div>
+      } @else {
+        <p class="vacancy-list__count">
+          Showing <strong>{{ filtered().length }}</strong> position{{ filtered().length === 1 ? '' : 's' }}
+        </p>
+        <div class="vacancy-list__grid">
+          @for (vacancy of filtered(); track vacancy.id) {
+            <lib-vacancy-card [vacancy]="vacancy" />
+          }
+        </div>
+      }
+    </main>
+  </div>
+</div>

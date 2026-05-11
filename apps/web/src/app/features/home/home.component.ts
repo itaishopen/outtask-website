@@ -5,10 +5,11 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { PublicApiService } from '../../core/services/public-api.service';
+import { PublicApiService } from '@outtask/data-access';
+import { SectionRendererComponent } from '@outtask/content';
 import { SeoService } from '../../core/services/seo.service';
-import { SectionRendererComponent } from '../../shared/sections/section-renderer.component';
-import type { PageSection } from '../../shared/models/api.models';
+import type { PageSection } from '@outtask/shared-types';
+import { SectionType } from '@outtask/shared-types';
 
 @Component({
   selector: 'app-home',
@@ -34,50 +35,52 @@ export class HomeComponent implements OnInit {
     });
 
     this.api.getPage('home').subscribe({
-      next: (res) => {
-        if (res.data.seo) {
+      next: (page) => {
+        if (page.seoTitle || page.seoDesc) {
           this.seo.setPage({
-            title: res.data.seo.title ?? res.data.title,
-            description: res.data.seo.description,
-            image: res.data.seo.image,
+            title: page.seoTitle ?? page.title,
+            description: page.seoDesc ?? undefined,
+            image: page.ogImage ?? undefined,
           });
         }
-        this.sections.set(res.data.sections);
+        this.sections.set(page.sections);
         this.loading.set(false);
       },
       error: () => {
         this.error.set(true);
         this.loading.set(false);
-        // Show fallback static sections on API error
         this.sections.set(this.getFallbackSections());
       },
     });
   }
 
   private getFallbackSections(): PageSection[] {
+    const now = new Date().toISOString();
     return [
       {
         id: 'hero-fallback',
-        type: 'hero',
+        pageId: 'home',
+        type: SectionType.HERO,
+        order: 0,
         config: {
           headline: 'Connecting ambitious companies with top IT talent',
           subheadline:
             'We help fast-growing companies in the Netherlands find skilled IT professionals — through staffing, nearshoring, and expert placement.',
-          badge: 'Trusted IT Partner',
-          ctas: [
-            { label: 'Hire a Developer', href: '/en/hire-a-developer', variant: 'primary' },
-            { label: 'View Vacancies', href: '/en/vacancies', variant: 'outline-white' },
-          ],
+          primaryCta: { label: 'Hire a Developer', href: '/en/hire-a-developer' },
+          secondaryCta: { label: 'View Vacancies', href: '/en/vacancies' },
         },
+        createdAt: now,
+        updatedAt: now,
       },
       {
         id: 'services-fallback',
-        type: 'cards',
+        pageId: 'home',
+        type: SectionType.CARDS,
+        order: 1,
         config: {
           eyebrow: 'What we do',
           heading: 'Our Services',
-          subtitle: 'End-to-end IT talent solutions for modern companies.',
-          centeredHeader: true,
+          columns: 3,
           cards: [
             {
               icon: '🧑‍💻',
@@ -101,40 +104,49 @@ export class HomeComponent implements OnInit {
               href: '/en/hire-a-developer',
             },
           ],
-          columns: 3,
         },
+        createdAt: now,
+        updatedAt: now,
       },
       {
         id: 'cta-fallback',
-        type: 'cta',
+        pageId: 'home',
+        type: SectionType.CTA,
+        order: 2,
         config: {
           heading: 'Ready to grow your team?',
           subheading: 'Schedule a free introductory call with our team today.',
-          variant: 'brand',
-          ctas: [
-            { label: 'Schedule a meeting', href: '/en/contact', variant: 'outline-white' },
-          ],
+          style: 'brand',
+          primaryCta: { label: 'Schedule a meeting', href: '/en/contact' },
         },
+        createdAt: now,
+        updatedAt: now,
       },
       {
         id: 'vacancies-fallback',
-        type: 'vacancy-list',
+        pageId: 'home',
+        type: SectionType.VACANCY_LIST,
+        order: 3,
         config: {
           heading: 'Open Positions',
-          subtitle: 'Join a fast-growing team or help us place the right candidates.',
           limit: 6,
-          showViewAll: true,
+          showFilters: false,
         },
+        createdAt: now,
+        updatedAt: now,
       },
       {
         id: 'blog-fallback',
-        type: 'blog-list',
+        pageId: 'home',
+        type: SectionType.BLOG_LIST,
+        order: 4,
         config: {
           heading: 'Latest Insights',
-          subtitle: 'Stay up to date with trends in IT staffing and tech hiring.',
           limit: 3,
           showViewAll: true,
         },
+        createdAt: now,
+        updatedAt: now,
       },
     ];
   }

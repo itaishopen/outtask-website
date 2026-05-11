@@ -1,0 +1,11 @@
+@if (loading()) {
+  <div class="home-loading">
+    <div class="home-loading__hero skeleton"></div>
+    <div class="container home-loading__content">
+      <div class="skeleton home-loading__title"></div>
+      <div class="skeleton home-loading__subtitle"></div>
+    </div>
+  </div>
+} @else {
+  <lib-section-renderer [sections]="sections()" />
+}
