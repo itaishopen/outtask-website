@@ -11,10 +11,10 @@
     "strict": true,
     "noPropertyAccessFromIndexSignature": false,
     "paths": {
-      "@outtask/shared-types": ["../../libs/shared-types/src/index.ts"],
-      "@outtask/ui": ["../../libs/ui/src/index.ts"],
-      "@outtask/content": ["../../libs/content/src/index.ts"],
-      "@outtask/data-access": ["../../libs/data-access/src/index.ts"]
+      "@outtask/shared-types": ["libs/shared-types/src/index.ts"],
+      "@outtask/ui": ["libs/ui/src/index.ts"],
+      "@outtask/content": ["libs/content/src/index.ts"],
+      "@outtask/data-access": ["libs/data-access/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

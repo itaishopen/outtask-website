@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
+  FormsModule,
   FormBuilder,
   FormGroup,
   FormArray,
@@ -118,7 +119,7 @@ const SECTION_TYPES: SectionTypeDef[] = [
   selector: 'app-page-editor',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink],
   template: `
     <div class="page-editor">
       <div class="page-header">

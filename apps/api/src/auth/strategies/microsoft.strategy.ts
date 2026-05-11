@@ -30,20 +30,25 @@ interface OIDCStrategyOptions {
 
 type VerifyCallback = (err: Error | null, user?: unknown) => void;
 
+type OIDCCtor = new (options: OIDCStrategyOptions, verify: (profile: OIDCProfile, done: VerifyCallback) => void) => unknown;
+
+class FallbackStrategy {}
+
 // Dynamic import to handle optional passport-azure-ad dependency
-let OIDCStrategy: new (options: OIDCStrategyOptions, verify: (profile: OIDCProfile, done: VerifyCallback) => void) => unknown;
+let OIDCStrategy: OIDCCtor = FallbackStrategy as unknown as OIDCCtor;
 
 try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const azureAd = require('passport-azure-ad');
+  const azureAd = require('passport-azure-ad') as { OIDCStrategy: OIDCCtor };
   OIDCStrategy = azureAd.OIDCStrategy;
 } catch {
   Logger.warn('passport-azure-ad not available, Microsoft SSO disabled', 'MicrosoftStrategy');
 }
 
 @Injectable()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MicrosoftStrategy extends PassportStrategy(
-  OIDCStrategy ?? class FallbackStrategy {},
+  OIDCStrategy as any,
   'microsoft',
 ) {
   constructor(private config: ConfigService) {

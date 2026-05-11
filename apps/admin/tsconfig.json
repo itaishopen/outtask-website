@@ -11,8 +11,8 @@
     "strict": true,
     "noPropertyAccessFromIndexSignature": false,
     "paths": {
-      "@outtask/shared-types": ["../../libs/shared-types/src/index.ts"],
-      "@outtask/data-access": ["../../libs/data-access/src/index.ts"]
+      "@outtask/shared-types": ["libs/shared-types/src/index.ts"],
+      "@outtask/data-access": ["libs/data-access/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../audit/audit.service';
 import { CreateSectionDto } from './dto/create-section.dto';
@@ -31,7 +32,7 @@ export class SectionsService {
         pageId,
         type: dto.type,
         order: dto.order,
-        config: dto.config,
+        config: dto.config as Prisma.InputJsonValue,
       },
     });
 
@@ -53,7 +54,7 @@ export class SectionsService {
       data: {
         ...(dto.type !== undefined && { type: dto.type }),
         ...(dto.order !== undefined && { order: dto.order }),
-        ...(dto.config !== undefined && { config: dto.config }),
+        ...(dto.config !== undefined && { config: dto.config as Prisma.InputJsonValue }),
       },
     });
 

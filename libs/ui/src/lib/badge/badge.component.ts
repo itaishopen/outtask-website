@@ -21,32 +21,32 @@ type BadgeVariant = 'default' | 'success' | 'warning' | 'danger' | 'info';
       font-weight: 600;
       line-height: 1;
       white-space: nowrap;
+    }
 
-      &--default {
-        background: var(--color-bg-alt, #f8fafc);
-        color: var(--color-text-muted, #64748b);
-        border: 1px solid var(--color-border, #e2e8f0);
-      }
+    .badge--default {
+      background: var(--color-bg-alt, #f8fafc);
+      color: var(--color-text-muted, #64748b);
+      border: 1px solid var(--color-border, #e2e8f0);
+    }
 
-      &--success {
-        background: #dcfce7;
-        color: #166534;
-      }
+    .badge--success {
+      background: #dcfce7;
+      color: #166534;
+    }
 
-      &--warning {
-        background: #fef3c7;
-        color: #92400e;
-      }
+    .badge--warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
 
-      &--danger {
-        background: #fee2e2;
-        color: #991b1b;
-      }
+    .badge--danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
 
-      &--info {
-        background: #dbeafe;
-        color: #1e40af;
-      }
+    .badge--info {
+      background: #dbeafe;
+      color: #1e40af;
     }
   `],
 })
