@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
   private readonly api = inject(PublicApiService);
   private readonly seo = inject(SeoService);
 
-  readonly sections = signal<PageSection[]>([]);
-  readonly loading = signal(true);
+  readonly sections = signal<PageSection[]>(this.getFallbackSections());
+  readonly loading = signal(false);
 
   ngOnInit(): void {
     this.seo.setPage({
@@ -43,11 +43,9 @@ export class HomeComponent implements OnInit {
           });
         }
         this.sections.set(page.sections);
-        this.loading.set(false);
       },
       error: () => {
-        this.loading.set(false);
-        this.sections.set(this.getFallbackSections());
+        // fallback already set as initial value
       },
     });
   }
